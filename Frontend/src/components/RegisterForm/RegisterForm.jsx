@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { getFriendlyError } from "../../utils/errorMessages";
 import "./RegisterForm.css";
 
+import { supabase } from "../../services/supabaseClient.js";
+
 function RegisterForm() {
   const navigate = useNavigate();
 

@@ -5,8 +5,9 @@ import Register from "./pages/Register/Register";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Profile from "./pages/Profile/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
-import ForgotPassword from "./pages/Auth/ForgotPassword";
+import ForgotPassword from "./pages/Auth/ForgotPassword";     
 import UpdatePassword from "./pages/Auth/UpdatePassword";
+
 
 function App() {
   return (
