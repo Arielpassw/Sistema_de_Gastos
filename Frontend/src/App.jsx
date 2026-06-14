@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from "./pages/Home/Home";
-import Register from "./pages/Register/Register";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import Profile from "./pages/Profile/Profile";
-import ProtectedRoute from "./components/ProtectedRoute";
-import ForgotPassword from "./pages/Auth/ForgotPassword";
-import ResetPassword from "./pages/Auth/ResetPassword";
+import Home from "./pages/Home/Home.jsx";
+import Register from "./pages/Register/Register.jsx";
+import Dashboard from "./pages/Dashboard/Dashboard.jsx";
+import Profile from "./pages/Profile/Profile.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import ForgotPassword from "./pages/Auth/ForgotPassword.jsx";
+import ResetPassword from "./pages/Auth/ResetPassword.jsx";
 
 function App() {
   return (
