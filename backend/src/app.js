@@ -15,6 +15,14 @@ app.use(cors({
 
 app.use(express.json());
 
+// Ruta de prueba
+app.get('/', (req, res) => {
+  res.json({
+    ok: true,
+    message: 'Backend Sistema de Gastos funcionando correctamente'
+  });
+});
+
 app.use('/api/auth', authRoutes);
 
 export default app;
