@@ -211,6 +211,7 @@ export const updateProfile = async (req, res) => {
     }
 
     // ACTUALIZAR AUTH METADATA
+
     const { data: profileData, error: profileError } = await supabase
       .from('profiles')
       .update({
@@ -226,30 +227,6 @@ export const updateProfile = async (req, res) => {
       .eq('id', req.user.id)
       .select()
       .maybeSingle();
-
-    if (authError) {
-      return res.status(400).json({
-        success: false,
-        message: authError.message
-      });
-    }
-
-    // ACTUALIZAR TABLA PROFILES
-    const { data: profileData, error: profileError } = await supabase
-      .from('profiles')
-      .update({
-        first_name,
-        last_name,
-        age,
-        salary,
-        children_count,
-        pets_count,
-        categories,
-        profile_completed: true
-      })
-      .eq('id', req.user.id)
-      .select()
-      .single();
 
     if (profileError) {
       return res.status(400).json({
