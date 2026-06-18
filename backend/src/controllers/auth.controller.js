@@ -74,6 +74,7 @@ export const register = async (req, res) => {
       message: 'Usuario registrado correctamente. Verifique su correo.',
       data
     });
+
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -111,6 +112,7 @@ export const login = async (req, res) => {
       message: 'Login exitoso',
       data
     });
+
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -140,6 +142,7 @@ export const loginWithGoogle = async (req, res) => {
       success: true,
       url: data.url
     });
+
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -191,7 +194,6 @@ export const updateProfile = async (req, res) => {
       categories
     } = req.body;
 
-    // VALIDACIÓN EDAD
     if (age && age < 25) {
       return res.status(400).json({
         success: false,
@@ -199,7 +201,6 @@ export const updateProfile = async (req, res) => {
       });
     }
 
-    // VALIDACIÓN SUELDO
     if (salary && salary < 0) {
       return res.status(400).json({
         success: false,
@@ -207,27 +208,6 @@ export const updateProfile = async (req, res) => {
       });
     }
 
-    // ACTUALIZAR AUTH METADATA
-    const { data: authData, error: authError } = await supabase.auth.updateUser({
-      data: {
-        first_name,
-        last_name,
-        age,
-        salary,
-        children_count,
-        pets_count,
-        categories
-      }
-    });
-
-    if (authError) {
-      return res.status(400).json({
-        success: false,
-        message: authError.message
-      });
-    }
-
-    // ACTUALIZAR TABLA PROFILES
     const { data: profileData, error: profileError } = await supabase
       .from('profiles')
       .update({
@@ -254,7 +234,6 @@ export const updateProfile = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: 'Perfil actualizado correctamente',
-      user: authData.user,
       profile: profileData
     });
 
@@ -293,6 +272,7 @@ export const forgotPassword = async (req, res) => {
       success: true,
       message: 'Correo de recuperación enviado'
     });
+
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -336,6 +316,7 @@ export const updatePassword = async (req, res) => {
       message: 'Contraseña actualizada correctamente',
       data
     });
+
   } catch (error) {
     return res.status(500).json({
       success: false,
