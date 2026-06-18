@@ -149,32 +149,59 @@ export const loginWithGoogle = async (req, res) => {
 };
 
 // MOSTRAR PERFIL
+
 export const getProfile = async (req, res) => {
+
   try {
+
+    const { data: profile, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', req.user.id)
+      .single();
+
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        message: error.message
+      });
+    }
+
     return res.status(200).json({
       success: true,
-      user: req.user
+      user: req.user,
+      profile
     });
+
   } catch (error) {
+
     return res.status(500).json({
       success: false,
       message: error.message
     });
+
   }
+
 };
 
 // ACTUALIZAR PERFIL
+// ACTUALIZAR PERFIL
+
 export const updateProfile = async (req, res) => {
+
   try {
+
     const {
       first_name,
       last_name,
       age,
       salary,
       children_count,
-      pets_count
+      pets_count,
+      categories
     } = req.body;
 
+    // VALIDACIÓN EDAD
     if (age && age < 25) {
       return res.status(400).json({
         success: false,
@@ -182,6 +209,15 @@ export const updateProfile = async (req, res) => {
       });
     }
 
+    // VALIDACIÓN SUELDO
+    if (salary && salary < 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'El sueldo no puede ser negativo'
+      });
+    }
+
+    // ACTUALIZAR AUTH METADATA
     const { data: authData, error: authError } =
       await supabase.auth.updateUser({
         data: {
@@ -190,7 +226,8 @@ export const updateProfile = async (req, res) => {
           age,
           salary,
           children_count,
-          pets_count
+          pets_count,
+          categories
         }
       });
 
@@ -201,7 +238,8 @@ export const updateProfile = async (req, res) => {
       });
     }
 
-    const { error: profileError } = await supabase
+    // ACTUALIZAR TABLA PROFILES
+    const { data: profileData, error: profileError } = await supabase
       .from('profiles')
       .update({
         first_name,
@@ -209,9 +247,13 @@ export const updateProfile = async (req, res) => {
         age,
         salary,
         children_count,
-        pets_count
+        pets_count,
+        categories,
+        profile_completed: true
       })
-      .eq('id', req.user.id);
+      .eq('id', req.user.id)
+      .select()
+      .single();
 
     if (profileError) {
       return res.status(400).json({
@@ -223,14 +265,19 @@ export const updateProfile = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: 'Perfil actualizado correctamente',
-      data: authData
+      user: authData.user,
+      profile: profileData
     });
+
   } catch (error) {
+
     return res.status(500).json({
       success: false,
       message: error.message
     });
+
   }
+
 };
 
 // RECUPERAR CONTRASEÑA
