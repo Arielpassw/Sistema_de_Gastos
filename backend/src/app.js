@@ -8,8 +8,26 @@ dotenv.config();
 
 const app = express();
 
+// ORÍGENES PERMITIDOS
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://sistema-de-gastos-2mlp.vercel.app'
+];
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: function (origin, callback) {
+
+    // Permite Postman o peticiones sin origin
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('No permitido por CORS'));
+  },
   credentials: true
 }));
 
