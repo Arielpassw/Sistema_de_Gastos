@@ -149,16 +149,13 @@ export const loginWithGoogle = async (req, res) => {
 };
 
 // MOSTRAR PERFIL
-
 export const getProfile = async (req, res) => {
-
   try {
-
     const { data: profile, error } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', req.user.id)
-      .single();
+      .maybeSingle();
 
     if (error) {
       return res.status(400).json({
@@ -174,17 +171,13 @@ export const getProfile = async (req, res) => {
     });
 
   } catch (error) {
-
     return res.status(500).json({
       success: false,
       message: error.message
     });
-
   }
-
 };
 
-// ACTUALIZAR PERFIL
 // ACTUALIZAR PERFIL
 
 export const updateProfile = async (req, res) => {
@@ -218,18 +211,21 @@ export const updateProfile = async (req, res) => {
     }
 
     // ACTUALIZAR AUTH METADATA
-    const { data: authData, error: authError } =
-      await supabase.auth.updateUser({
-        data: {
-          first_name,
-          last_name,
-          age,
-          salary,
-          children_count,
-          pets_count,
-          categories
-        }
-      });
+    const { data: profileData, error: profileError } = await supabase
+      .from('profiles')
+      .update({
+        first_name,
+        last_name,
+        age,
+        salary,
+        children_count,
+        pets_count,
+        categories,
+        profile_completed: true
+      })
+      .eq('id', req.user.id)
+      .select()
+      .maybeSingle();
 
     if (authError) {
       return res.status(400).json({
