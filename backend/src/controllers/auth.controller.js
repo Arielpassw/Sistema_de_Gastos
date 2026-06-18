@@ -179,11 +179,8 @@ export const getProfile = async (req, res) => {
 };
 
 // ACTUALIZAR PERFIL
-
 export const updateProfile = async (req, res) => {
-
   try {
-
     const {
       first_name,
       last_name,
@@ -211,7 +208,26 @@ export const updateProfile = async (req, res) => {
     }
 
     // ACTUALIZAR AUTH METADATA
+    const { data: authData, error: authError } = await supabase.auth.updateUser({
+      data: {
+        first_name,
+        last_name,
+        age,
+        salary,
+        children_count,
+        pets_count,
+        categories
+      }
+    });
 
+    if (authError) {
+      return res.status(400).json({
+        success: false,
+        message: authError.message
+      });
+    }
+
+    // ACTUALIZAR TABLA PROFILES
     const { data: profileData, error: profileError } = await supabase
       .from('profiles')
       .update({
@@ -243,14 +259,11 @@ export const updateProfile = async (req, res) => {
     });
 
   } catch (error) {
-
     return res.status(500).json({
       success: false,
       message: error.message
     });
-
   }
-
 };
 
 // RECUPERAR CONTRASEÑA
