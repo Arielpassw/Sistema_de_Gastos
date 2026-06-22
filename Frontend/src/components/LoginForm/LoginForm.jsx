@@ -41,7 +41,7 @@ function LoginForm() {
         throw new Error(data.message || "Credenciales inválidas");
       }
 
-      //  USUARIO REAL 
+      //  USUARIO REAL (evita errores de estructura)
       const rawUser = data?.user || data?.data?.user || data?.data || null;
 
       if (!rawUser) {
@@ -50,7 +50,7 @@ function LoginForm() {
 
       const normalizedUser = normalizeUser(rawUser);
 
-      // TOKEN 
+      // TOKEN (soporta múltiples backends)
       const token =
         data?.token ||
         data?.data?.token ||
@@ -67,7 +67,7 @@ function LoginForm() {
         console.warn("Login sin token (permitido en tu sistema)");
       }
 
-      //  GUARDAR USER CORRECTO 
+      //  GUARDAR USER CORRECTO (SIN DUPLICAR VARIABLES)
       localStorage.setItem("user", JSON.stringify(normalizedUser));
 
       //  VALIDACIÓN PERFIL COMPLETO
@@ -80,7 +80,15 @@ function LoginForm() {
         normalizedUser.categories.length > 0;
 
       //  REDIRECCIÓN CONTROLADA
-      navigate(profileComplete ? "/dashboard" : "/profile");
+      if (profileComplete) {
+        navigate("/dashboard");
+      } else {
+        navigate("/profile", {
+          state: {
+            message: "Completa tu perfil para poder continuar."
+          }
+        });
+      }
 
     } catch (err) {
       console.error(err);

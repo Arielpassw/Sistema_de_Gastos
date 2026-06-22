@@ -168,6 +168,16 @@ function Profile() {
       return;
     }
 
+    if (Number(profile.children_count) < 0) {
+      setErrorMessage("La cantidad de hijos no puede ser negativa.");
+      return;
+    }
+
+    if (Number(profile.pets_count) < 0) {
+      setErrorMessage("La cantidad de mascotas no puede ser negativa.");
+      return;
+    }
+
     if (profile.categories.length === 0) {
       setErrorMessage("Debes seleccionar al menos una categoría.");
       return;
@@ -303,8 +313,14 @@ function Profile() {
       <h1>Mi Perfil</h1>
 
       {successMessage && (
-        <div className="success-message">
+        <div className="toast-success">
           {successMessage}
+        </div>
+      )}
+
+      {errorMessage && (
+        <div className="toast-error">
+          {errorMessage}
         </div>
       )}
 
@@ -354,6 +370,7 @@ function Profile() {
           type="number"
           name="salary"
           placeholder="Sueldo"
+          min="250"
           value={profile.salary}
           onChange={handleChange}
         />
@@ -362,6 +379,7 @@ function Profile() {
           type="number"
           name="children_count"
           placeholder="Hijos"
+          min="0"
           value={profile.children_count}
           onChange={handleChange}
         />
@@ -370,6 +388,7 @@ function Profile() {
           type="number"
           name="pets_count"
           placeholder="Mascotas"
+          min="0"
           value={profile.pets_count}
           onChange={handleChange}
         />

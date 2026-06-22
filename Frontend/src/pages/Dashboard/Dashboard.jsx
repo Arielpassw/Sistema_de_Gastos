@@ -75,6 +75,8 @@ function Dashboard() {
     ? profile.categories
     : [];
 
+    console.log(profile?.categories);
+    
   return (
     <div className="dashboard-container">
 
