@@ -79,10 +79,10 @@ function Profile() {
         setProfile({
           first_name: user.first_name || "",
           last_name: user.last_name || "",
-          age: user.age || "",
-          salary: user.salary || "",
-          children_count: user.children_count || "",
-          pets_count: user.pets_count || "",
+          age: user.age ?? "",
+          salary: user.salary ?? "",
+          children_count: user.children_count ?? "",
+          pets_count: user.pets_count ?? "",
           categories: user.categories || []
         });
         setLoading(false);
@@ -98,7 +98,10 @@ function Profile() {
       });
 
       const data = await response.json();
-      const profileData = normalizeUser(data?.user || data);
+      const profileData = {
+        ...normalizeUser(data?.user || {}),
+        ...(data?.profile || {})
+      }
 
       if (!response.ok) {
         if (user) {
@@ -106,10 +109,10 @@ function Profile() {
           setProfile({
             first_name: user.first_name || "",
             last_name: user.last_name || "",
-            age: user.age || "",
-            salary: user.salary || "",
-            children_count: user.children_count || "",
-            pets_count: user.pets_count || "",
+            age: user.age ?? "",
+            salary: user.salary ?? "",
+            children_count: user.children_count ?? "",
+            pets_count: user.pets_count ?? "",
             categories: user.categories || []
           });
           setLoading(false);
@@ -122,13 +125,12 @@ function Profile() {
       setProfile({
         first_name: profileData.first_name || "",
         last_name: profileData.last_name || "",
-        age: profileData.age || "",
-        salary: profileData.salary || "",
-        children_count: profileData.children_count || "",
-        pets_count: profileData.pets_count || "",
+        age: profileData.age ?? "",
+        salary: profileData.salary ?? "",
+        children_count: profileData.children_count ?? "",
+        pets_count: profileData.pets_count ?? "",
         categories: profileData.categories || []
       });
-
     } catch (error) {
       console.error("ERROR PROFILE:", error);
       setErrorMessage(getFriendlyError(error.message));
@@ -211,6 +213,12 @@ function Profile() {
 
       const data = await response.json();
 
+      //prueba 
+      console.log(" PROFILE RESPONSE:", data);
+      console.log("CATEGORIES:", data.profile?.categories || data.data?.categories);
+
+      //-------
+
       if (!response.ok) {
         throw new Error(data.message || "Error al actualizar perfil.");
       }
@@ -222,12 +230,24 @@ function Profile() {
           "user",
           JSON.stringify({
             ...user,
-            ...profile
+            ...(data.profile || data.profile || profile)
           })
         );
       }
+      /*
+      setProfile({
+        first_name: updatedProfile.first_name || "",
+        last_name: updatedProfile.last_name || "",
+        age: updatedProfile.age ?? "",
+        salary: updatedProfile.salary ?? "",
+        children_count: updatedProfile.children_count ?? "",
+        pets_count: updatedProfile.pets_count ?? "",
+        categories: updatedProfile.categories || []
+      });
+      */
 
       setSuccessMessage("Perfil actualizado correctamente.");
+      await loadProfile();
       setTimeout(() => {
         navigate("/dashboard");
       }, 1500);
@@ -399,7 +419,7 @@ function Profile() {
           <label key={category}>
             <input
               type="checkbox"
-              checked={profile.categories.includes(category)}
+              checked={(profile.categories || []).includes(category)}
               onChange={() => handleCategoryChange(category)}
             />
             {category}
