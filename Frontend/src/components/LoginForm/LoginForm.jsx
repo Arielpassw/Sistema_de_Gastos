@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { getFriendlyError } from "../../utils/errorMessages";
 import { normalizeUser } from "../../utils/userUtils";
 
+import { Eye, EyeOff } from "lucide-react";
 import "./LoginForm.css";
 
 function LoginForm() {
@@ -12,7 +13,7 @@ function LoginForm() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -122,13 +123,23 @@ function LoginForm() {
           required
         />
 
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div className="password-container">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button
+            type="button"
+            className="toggle-password"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        </div>
+
 
         <button type="submit" className="btn-login" disabled={loading}>
           {loading ? "Ingresando..." : "Ingresar"}
