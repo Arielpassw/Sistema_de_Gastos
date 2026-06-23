@@ -238,7 +238,7 @@ function Profile() {
       setSuccessMessage("Perfil actualizado correctamente.");
       await loadProfile();
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/dashboardUser");
       }, 1500);
 
     } catch (error) {
