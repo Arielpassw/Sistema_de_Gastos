@@ -82,7 +82,7 @@ function LoginForm() {
 
       //  REDIRECCIÓN CONTROLADA
       if (profileComplete) {
-        navigate("/dashboard");
+        navigate("/dashboardUser");
       } else {
         navigate("/profile", {
           state: {
