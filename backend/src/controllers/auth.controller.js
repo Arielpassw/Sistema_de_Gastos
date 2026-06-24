@@ -84,6 +84,7 @@ export const register = async (req, res) => {
 };
 
 // LOGIN
+// LOGIN
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -107,10 +108,41 @@ export const login = async (req, res) => {
       });
     }
 
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', data.user.id)
+      .maybeSingle();
+
+    if (profileError) {
+      return res.status(400).json({
+        success: false,
+        message: profileError.message
+      });
+    }
+
+    if (!profile) {
+      return res.status(404).json({
+        success: false,
+        message: 'Perfil no encontrado'
+      });
+    }
+
+    if (profile.is_active === false) {
+      return res.status(403).json({
+        success: false,
+        message: 'Usuario desactivado. Contacte al administrador.'
+      });
+    }
+
     return res.status(200).json({
       success: true,
       message: 'Login exitoso',
-      data
+      data: {
+        user: data.user,
+        session: data.session,
+        profile
+      }
     });
 
   } catch (error) {
