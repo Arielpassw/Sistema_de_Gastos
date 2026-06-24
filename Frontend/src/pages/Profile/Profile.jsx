@@ -365,6 +365,7 @@ function Profile({ onClose }) {
 
         <h2>Información Financiera</h2>
 
+        <p>Sueldo</p>
         <input
           type="number"
           name="salary"
@@ -373,7 +374,7 @@ function Profile({ onClose }) {
           value={profile.salary}
           onChange={handleChange}
         />
-
+        <p>Hijos</p>
         <input
           type="number"
           name="children_count"
@@ -382,7 +383,7 @@ function Profile({ onClose }) {
           value={profile.children_count}
           onChange={handleChange}
         />
-
+        <p>Mascotas</p>
         <input
           type="number"
           name="pets_count"
