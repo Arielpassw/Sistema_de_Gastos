@@ -32,6 +32,10 @@ function RegisterForm() {
     });
   };
 
+  //caracteres especiales en la contraseña 
+  const passwordRegex =
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_\-])[A-Za-z\d@$!%*?&.#_\-]{8,}$/;
+
   // Registro tradicional
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,8 +51,10 @@ function RegisterForm() {
       return;
     }
 
-    if (formData.password.length < 8) {
-      setError("La contraseña debe tener mínimo 8 caracteres.");
+    if (!passwordRegex.test(formData.password)) {
+      setError(
+        "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un número y un carácter especial."
+      );
       return;
     }
 
@@ -163,7 +169,11 @@ function RegisterForm() {
           onChange={handleChange}
           required
         />
-
+        <h3>Contraseña</h3>
+        <small className="password-hint">
+          La contraseña debe contener al menos 8 caracteres,
+          una letra mayúscula, un número y un carácter especial.
+        </small>
         <div className="password-container">
           <input
             type={showPassword ? "text" : "password"}
@@ -207,7 +217,7 @@ function RegisterForm() {
             )}
           </button>
         </div>
-        
+
         <button
           type="submit"
           className="btn-register"
@@ -237,7 +247,7 @@ function RegisterForm() {
         <button
           type="button"
           className="login-link"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/home")}
         >
           Iniciar sesión
         </button>

@@ -6,7 +6,7 @@ import "../../styles/profile.css";
 // IMPORTAMOS LOS ICONOS PARA EL OJO
 import { Eye, EyeOff } from "lucide-react";
 
-function Profile() {
+function Profile({ onClose }) {
   const navigate = useNavigate();
 
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
@@ -41,7 +41,7 @@ function Profile() {
 
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
+
   // NUEVOS ESTADOS PARA MOSTRAR/OCULTAR CONTRASEÑAS
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -237,8 +237,13 @@ function Profile() {
 
       setSuccessMessage("Perfil actualizado correctamente.");
       await loadProfile();
+
       setTimeout(() => {
-        navigate("/dashboardUser");
+        if (onClose) {
+          onClose(); // cierra el modal y actualiza el dashboard
+        } else {
+          navigate("/dashboardUser");
+        }
       }, 1500);
 
     } catch (error) {
@@ -248,6 +253,10 @@ function Profile() {
       setSavingProfile(false);
     }
   };
+
+  //caracteres especiales en la contraseña 
+  const passwordRegex =
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_\-])[A-Za-z\d@$!%*?&.#_\-]{8,}$/;
 
   const handleChangePassword = async () => {
     setErrorMessage("");
@@ -263,8 +272,10 @@ function Profile() {
       return;
     }
 
-    if (newPassword.length < 6) {
-      setErrorMessage("La contraseña debe tener mínimo 6 caracteres.");
+    if (!passwordRegex.test(newPassword)) {
+      setErrorMessage(
+        "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un número y un carácter especial."
+      );
       return;
     }
 
@@ -403,6 +414,12 @@ function Profile() {
       <hr />
 
       <h2>Cambiar contraseña</h2>
+
+      <small className="password-hint">
+        La contraseña debe contener al menos 8 caracteres,
+        una letra mayúscula, un número y un carácter especial.
+      </small>
+
       <div className="password-section">
         {/* NUEVA CONTRASEÑA CON OJO */}
         <div className="password-container">

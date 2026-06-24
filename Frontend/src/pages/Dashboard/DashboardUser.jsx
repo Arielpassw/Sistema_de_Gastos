@@ -75,8 +75,8 @@ function DashboardUser() {
     ? profile.categories
     : [];
 
-    console.log(profile?.categories);
-    
+  console.log(profile?.categories);
+
   return (
     <div className="dashboard-container">
 
@@ -140,7 +140,12 @@ function DashboardUser() {
               ✕
             </button>
 
-            <Profile />
+            <Profile
+              onClose={() => {
+                setShowProfile(false);
+                checkProfile(); 
+              }}
+            />
 
           </div>
 

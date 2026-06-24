@@ -18,6 +18,10 @@ function ResetPassword() {
   const [messageType, setMessageType] = useState("");
   const [loading, setLoading] = useState(false);
 
+  //caracteres especiales en la contraseña 
+  const passwordRegex =
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_\-])[A-Za-z\d@$!%*?&.#_\-]{8,}$/;
+
   const handleUpdate = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -36,9 +40,11 @@ function ResetPassword() {
       return;
     }
 
-    if (password.length < 8) {
+    if (!passwordRegex.test(password)) {
       setMessageType("error");
-      setMessage("La contraseña debe tener mínimo 8 caracteres.");
+      setMessage(
+        "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un número y un carácter especial."
+      );
       return;
     }
 
@@ -78,6 +84,11 @@ function ResetPassword() {
     <div className="auth-container">
       <div className="auth-box">
         <h2>Cambiar Contraseña</h2>
+        
+        <small className="password-hint">
+          La contraseña debe contener al menos 8 caracteres,
+          una letra mayúscula, un número y un carácter especial.
+        </small>
 
         <form onSubmit={handleUpdate}>
           {/* Campo Contraseña */}
