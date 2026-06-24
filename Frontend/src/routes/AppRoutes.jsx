@@ -9,51 +9,58 @@ import UpdatePassword from "../pages/Auth/UpdatePassword";
 import Landing from "../pages/Landing/Landing";
 import DashboardUser from "../pages/Dashboard/DashboardUser";
 
-function AppRoutes() {
+import ProtectedRoute from "./ProtectedRoute";
 
+function AppRoutes() {
   return (
     <Routes>
 
-      <Route
-        path="/home"
-        element={<Home />}
-      />
+      <Route path="/home" element={<Home />} />
 
-      <Route
-        path="/register"
-        element={<Register />}
-      />
+      <Route path="/register" element={<Register />} />
 
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+
+      <Route path="/update-password" element={<UpdatePassword />} />
+
+      <Route path="/" element={<Landing />} />
+
+      {/* USUARIO LOGUEADO */}
       <Route
         path="/dashboardUser"
-        element={<DashboardUser />}
+        element={
+          <ProtectedRoute>
+            <DashboardUser />
+          </ProtectedRoute>
+        }
       />
 
       <Route
         path="/profile"
-        element={<Profile />}
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
       />
 
+      {/* SOLO ADMIN */}
       <Route
-        path="/forgot-password"
-        element={<ForgotPassword />}
+        path="/admin"
+        element={
+          <ProtectedRoute role="admin">
+            <DashboardAdmin />
+          </ProtectedRoute>
+        }
       />
 
+      {/* TEST */}
       <Route
-        path="/update-password"
-        element={<UpdatePassword />}
+        path="/admin-test"
+        element={<DashboardAdmin />}
       />
 
-      <Route
-        path="/"
-        element={<Landing />}
-      />
-
-      
-
-      {/* 2. AÑADE ESTA RUTA TEMPORAL PARA PRUEBAS */}
-      <Route path="/admin-test" element={<DashboardAdmin />} />
-    </Routes >
+    </Routes>
   );
 }
 

@@ -10,17 +10,21 @@ import UpdatePassword from "./pages/Auth/UpdatePassword";
 import Landing from "./pages/Landing/Landing";
 import DashboardAdmin from "./pages/Dashboard/DashboardAdmin";
 
-
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+
+        {/* LANDING / HOME */}
         <Route path="/" element={<Landing />} />
-
         <Route path="/home" element={<Home />} />
-        
-        <Route path="/register" element={<Register />} />
 
+        {/* AUTH */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/update-password" element={<UpdatePassword />} />
+
+        {/* USUARIO LOGUEADO */}
         <Route
           path="/profile"
           element={
@@ -38,24 +42,17 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* solo ADMIN */}
         <Route
           path="/admin-test"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute role="admin">
               <DashboardAdmin />
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/forgot-password"
-          element={<ForgotPassword />}
-        />
-        
-        <Route
-          path="/update-password"
-          element={<UpdatePassword />}
-        />
-        
+
       </Routes>
     </BrowserRouter>
   );
