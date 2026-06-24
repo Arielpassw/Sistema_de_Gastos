@@ -156,3 +156,48 @@
     opacity: 1;
   }
 }
+
+/* ========================================== */
+/* SOLUCIÓN ESTRUCTURAL PARA BOTÓN OJO (PROFILE) */
+/* ========================================== */
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 45px; /* Espacio para que el texto no tape el ojo */
+  box-sizing: border-box;
+}
+
+/* BOTÓN OJO LIMPIO */
+.profile-container .toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important; /* Quita el fondo verde */
+  border: none !important;
+  cursor: pointer;
+  color: #64748b !important; /* Color gris suave */
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.profile-container .toggle-password:hover {
+  color: #14b8a6 !important; /* Cambia a verde menta al pasar el mouse */
+  background: transparent !important;
+}
+
+.profile-container .toggle-password svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}

@@ -2,11 +2,12 @@ import { Routes, Route } from "react-router-dom";
 
 import Home from "../pages/Home/Home";
 import Register from "../pages/Register/Register";
-import Dashboard from "../pages/Dashboard/Dashboard";
+import DashboardAdmin from "../pages/Dashboard/DashboardAdmin";
 import Profile from "../pages/Profile/Profile";
 import ForgotPassword from "../pages/Auth/ForgotPassword";
 import UpdatePassword from "../pages/Auth/UpdatePassword";
 import Landing from "../pages/Landing/Landing";
+import DashboardUser from "../pages/Dashboard/DashboardUser";
 
 function AppRoutes() {
 
@@ -24,8 +25,8 @@ function AppRoutes() {
       />
 
       <Route
-        path="/dashboard"
-        element={<Dashboard />}
+        path="/dashboardUser"
+        element={<DashboardUser />}
       />
 
       <Route
@@ -48,7 +49,11 @@ function AppRoutes() {
         element={<Landing />}
       />
 
-    </Routes>
+      
+
+      {/* 2. AÑADE ESTA RUTA TEMPORAL PARA PRUEBAS */}
+      <Route path="/admin-test" element={<DashboardAdmin />} />
+    </Routes >
   );
 }
 

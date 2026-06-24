@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { normalizeUser } from "../../utils/userUtils";
 import { getFriendlyError } from "../../utils/errorMessages";
 import "../../styles/profile.css";
+// IMPORTAMOS LOS ICONOS PARA EL OJO
+import { Eye, EyeOff } from "lucide-react";
 
 function Profile() {
   const navigate = useNavigate();
@@ -39,6 +41,10 @@ function Profile() {
 
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  
+  // NUEVOS ESTADOS PARA MOSTRAR/OCULTAR CONTRASEÑAS
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     loadProfile();
@@ -101,7 +107,7 @@ function Profile() {
       const profileData = {
         ...normalizeUser(data?.user || {}),
         ...(data?.profile || {})
-      }
+      };
 
       if (!response.ok) {
         if (user) {
@@ -213,12 +219,6 @@ function Profile() {
 
       const data = await response.json();
 
-      //prueba 
-      console.log(" PROFILE RESPONSE:", data);
-      console.log("CATEGORIES:", data.profile?.categories || data.data?.categories);
-
-      //-------
-
       if (!response.ok) {
         throw new Error(data.message || "Error al actualizar perfil.");
       }
@@ -230,26 +230,15 @@ function Profile() {
           "user",
           JSON.stringify({
             ...user,
-            ...(data.profile || data.profile || profile)
+            ...(data.profile || data.data || profile)
           })
         );
       }
-      /*
-      setProfile({
-        first_name: updatedProfile.first_name || "",
-        last_name: updatedProfile.last_name || "",
-        age: updatedProfile.age ?? "",
-        salary: updatedProfile.salary ?? "",
-        children_count: updatedProfile.children_count ?? "",
-        pets_count: updatedProfile.pets_count ?? "",
-        categories: updatedProfile.categories || []
-      });
-      */
 
       setSuccessMessage("Perfil actualizado correctamente.");
       await loadProfile();
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/dashboardUser");
       }, 1500);
 
     } catch (error) {
@@ -329,29 +318,12 @@ function Profile() {
 
   return (
     <div className="profile-container">
-
       <h1>Mi Perfil</h1>
 
-      {successMessage && (
-        <div className="toast-success">
-          {successMessage}
-        </div>
-      )}
-
-      {errorMessage && (
-        <div className="toast-error">
-          {errorMessage}
-        </div>
-      )}
-
-      {errorMessage && (
-        <div className="error-message">
-          {errorMessage}
-        </div>
-      )}
+      {successMessage && <div className="toast-success">{successMessage}</div>}
+      {errorMessage && <div className="toast-error">{errorMessage}</div>}
 
       <form onSubmit={handleSave}>
-
         <h2>Información Personal</h2>
 
         <input
@@ -370,11 +342,7 @@ function Profile() {
           onChange={handleChange}
         />
 
-        <input
-          type="email"
-          value={email}
-          disabled
-        />
+        <input type="email" value={email} disabled />
 
         <input
           type="number"
@@ -414,46 +382,66 @@ function Profile() {
         />
 
         <h2>Categorías</h2>
-
-        {categoriesList.map((category) => (
-          <label key={category}>
-            <input
-              type="checkbox"
-              checked={(profile.categories || []).includes(category)}
-              onChange={() => handleCategoryChange(category)}
-            />
-            {category}
-          </label>
-        ))}
+        <div className="categories-container">
+          {categoriesList.map((category) => (
+            <label key={category} className="category-item">
+              <input
+                type="checkbox"
+                checked={(profile.categories || []).includes(category)}
+                onChange={() => handleCategoryChange(category)}
+              />
+              {category}
+            </label>
+          ))}
+        </div>
 
         <button type="submit" disabled={savingProfile}>
           {savingProfile ? "Guardando..." : "Guardar"}
         </button>
-
       </form>
 
       <hr />
 
       <h2>Cambiar contraseña</h2>
+      <div className="password-section">
+        {/* NUEVA CONTRASEÑA CON OJO */}
+        <div className="password-container">
+          <input
+            type={showNewPassword ? "text" : "password"}
+            placeholder="Nueva contraseña"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+          <button
+            type="button"
+            className="toggle-password"
+            onClick={() => setShowNewPassword(!showNewPassword)}
+          >
+            {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        </div>
 
-      <input
-        type="password"
-        placeholder="Nueva contraseña"
-        value={newPassword}
-        onChange={(e) => setNewPassword(e.target.value)}
-      />
+        {/* CONFIRMAR CONTRASEÑA CON OJO */}
+        <div className="password-container">
+          <input
+            type={showConfirmPassword ? "text" : "password"}
+            placeholder="Confirmar contraseña"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <button
+            type="button"
+            className="toggle-password"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          >
+            {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        </div>
 
-      <input
-        type="password"
-        placeholder="Confirmar contraseña"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
-
-      <button onClick={handleChangePassword} disabled={changingPassword}>
-        {changingPassword ? "Actualizando..." : "Actualizar contraseña"}
-      </button>
-
+        <button onClick={handleChangePassword} disabled={changingPassword}>
+          {changingPassword ? "Actualizando..." : "Actualizar contraseña"}
+        </button>
+      </div>
     </div>
   );
 }

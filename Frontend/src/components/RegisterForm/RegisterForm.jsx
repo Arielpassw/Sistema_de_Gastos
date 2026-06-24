@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { getFriendlyError } from "../../utils/errorMessages";
 import "./RegisterForm.css";
 
+//visualizacion de contraseña 
+import { Eye, EyeOff } from "lucide-react";
+
 function RegisterForm() {
   const navigate = useNavigate();
 
@@ -19,6 +22,8 @@ function RegisterForm() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -159,24 +164,50 @@ function RegisterForm() {
           required
         />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Contraseña"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+        <div className="password-container">
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="Contraseña"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
 
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirmar contraseña"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          required
-        />
+          <button
+            type="button"
+            className="toggle-password"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        </div>
 
+        <div className="password-container">
+          <input
+            type={showConfirmPassword ? "text" : "password"}
+            name="confirmPassword"
+            placeholder="Confirmar contraseña"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            required
+          />
+
+          <button
+            type="button"
+            className="toggle-password"
+            onClick={() =>
+              setShowConfirmPassword(!showConfirmPassword)
+            }
+          >
+            {showConfirmPassword ? (
+              <EyeOff size={20} />
+            ) : (
+              <Eye size={20} />
+            )}
+          </button>
+        </div>
+        
         <button
           type="submit"
           className="btn-register"
