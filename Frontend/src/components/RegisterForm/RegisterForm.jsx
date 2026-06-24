@@ -117,13 +117,20 @@ function RegisterForm() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    window.location.href = `${API_URL}/api/auth/google`;
+  // Logueo con Google
+  const handleGoogleLogin = async () => {
+    const res = await fetch(`${API_URL}/api/auth/google`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const data = await res.json();
+    window.location.href = data.url;
   };
 
   return (
     <div className="register-card">
-      
+
       {/* CONTENEDOR FLOTANTE DE TOASTS */}
       <div className="toast-container">
         {error && (

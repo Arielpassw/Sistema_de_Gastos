@@ -99,8 +99,28 @@ function LoginForm() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    window.location.href = `${API_URL}/api/auth/google`;
+  //logueo con Google
+  const handleGoogleLogin = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/auth/google`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message);
+      }
+
+      // redirección a Google OAuth
+      window.location.href = data.url;
+
+    } catch (error) {
+      console.error("Error Google Login:", error);
+    }
   };
 
   return (
