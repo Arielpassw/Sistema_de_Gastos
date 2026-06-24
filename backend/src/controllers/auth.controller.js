@@ -127,7 +127,7 @@ export const loginWithGoogle = async (req, res) => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${FRONTEND_URL}/dashboard`
+        redirectTo: `${FRONTEND_URL}/dashboardUser`
       }
     });
 
