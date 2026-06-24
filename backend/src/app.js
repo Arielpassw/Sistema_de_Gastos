@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 
 import authRoutes from './routes/auth.routes.js';
 import adminRoutes from './routes/admin.routes.js';
+import expenseRoutes from './routes/expense.routes.js';
 
 dotenv.config();
 
@@ -35,6 +36,8 @@ app.use(cors({
 app.use(express.json());
 
 app.use('/api/admin', adminRoutes);
+
+app.use('/api/expenses', expenseRoutes);
 
 // Ruta de prueba
 app.get('/', (req, res) => {
