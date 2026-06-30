@@ -6,6 +6,7 @@ import authRoutes from './routes/auth.routes.js';
 import adminRoutes from './routes/admin.routes.js';
 import expenseRoutes from './routes/expense.routes.js';
 import incomeRoutes from './routes/income.routes.js';
+import paymentsRoutes from "./routes/payments.routes.js";
 
 dotenv.config();
 
@@ -20,7 +21,6 @@ const allowedOrigins = [
 app.use(cors({
   origin: function (origin, callback) {
 
-    // Permite Postman o peticiones sin origin
     if (!origin) {
       return callback(null, true);
     }
@@ -34,15 +34,21 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(express.json()); 
+// IMPORTANTE:
+// El webhook debe ir ANTES del express.json()
 
-app.use('/api/admin', adminRoutes); 
+app.use("/api/payments/webhook", express.raw({ type: "application/json" }));
+
+app.use(express.json());
+
+app.use('/api/admin', adminRoutes);
 
 app.use('/api/expenses', expenseRoutes);
 
 app.use('/api/incomes', incomeRoutes);
 
-// Ruta de prueba
+app.use("/api/payments", paymentsRoutes);
+
 app.get('/', (req, res) => {
   res.json({
     ok: true,
