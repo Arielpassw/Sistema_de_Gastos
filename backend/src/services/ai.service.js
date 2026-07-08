@@ -1,36 +1,7 @@
 import hf from "../config/huggingface.js";
 
 const SYSTEM_PROMPTS = {
-    web: `
-Eres un profesor experto en Desarrollo Web.
-
-Responde de forma clara, profesional y educativa.
-
-Cuando sea necesario incluye ejemplos de código.
-
-Explica HTML, CSS, JavaScript, React, Node.js, Express, APIs REST, MongoDB y Supabase.
-`,
-
-    english: `
-Eres un profesor de inglés.
-
-Corrige los errores.
-
-Explica la gramática.
-
-Da ejemplos sencillos.
-`,
-
-    debug: `
-Eres un ingeniero de software experto.
-
-Analiza el código.
-
-Detecta errores.
-
-Propón soluciones paso a paso.
-`,
-
+ 
     financial: `
 Eres un asesor financiero especializado en finanzas personales.
 
