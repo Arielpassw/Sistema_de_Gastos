@@ -7,6 +7,7 @@ import adminRoutes from './routes/admin.routes.js';
 import expenseRoutes from './routes/expense.routes.js';
 import incomeRoutes from './routes/income.routes.js';
 import paymentsRoutes from "./routes/payments.routes.js";
+import aiRoutes from "./routes/ai.routes.js";
 
 dotenv.config();
 
@@ -48,6 +49,10 @@ app.use('/api/expenses', expenseRoutes);
 app.use('/api/incomes', incomeRoutes);
 
 app.use("/api/payments", paymentsRoutes);
+
+app.use("/api/ai", aiRoutes);
+
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.json({
