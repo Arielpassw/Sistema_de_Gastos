@@ -193,14 +193,14 @@ body {
   border: none;
   border-radius: 12px;
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(208, 12, 12, 0.599);
   font-size: 14px;
   cursor: pointer;
   transition: background 0.25s ease;
 }
 
 .logout-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(109, 5, 5, 0.15);
 }
 
 .logo-container {
