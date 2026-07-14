@@ -31,6 +31,7 @@ import {
 
 const API_URL =
   import.meta.env.VITE_API_URL || "http://localhost:4000";
+console.log("API URL DEL ADMIN:", API_URL);
 
 const CHART_COLORS = [
   "#22c55e",
@@ -112,8 +113,8 @@ export default function DashboardAdmin() {
     if (!response.ok) {
       throw new Error(
         data?.message ||
-          data?.error ||
-          "Ocurrió un error al consumir la API."
+        data?.error ||
+        "Ocurrió un error al consumir la API."
       );
     }
 
@@ -322,9 +323,9 @@ export default function DashboardAdmin() {
         previousUsers.map((currentUser) =>
           currentUser.id === user.id
             ? {
-                ...currentUser,
-                is_active: newStatus,
-              }
+              ...currentUser,
+              is_active: newStatus,
+            }
             : currentUser
         )
       );
@@ -475,10 +476,10 @@ export default function DashboardAdmin() {
 
       cantidad: Number(
         category.count ??
-          category.total ??
-          category.usage_count ??
-          category.quantity ??
-          0
+        category.total ??
+        category.usage_count ??
+        category.quantity ??
+        0
       ),
     }))
     .sort((a, b) => b.cantidad - a.cantidad);
@@ -589,11 +590,10 @@ export default function DashboardAdmin() {
         <nav className="sidebar-menu">
           <button
             type="button"
-            className={`menu-item ${
-              activeTab === "dashboard"
+            className={`menu-item ${activeTab === "dashboard"
                 ? "active"
                 : ""
-            }`}
+              }`}
             onClick={() =>
               setActiveTab("dashboard")
             }
@@ -604,11 +604,10 @@ export default function DashboardAdmin() {
 
           <button
             type="button"
-            className={`menu-item ${
-              activeTab === "users"
+            className={`menu-item ${activeTab === "users"
                 ? "active"
                 : ""
-            }`}
+              }`}
             onClick={() =>
               setActiveTab("users")
             }
@@ -619,11 +618,10 @@ export default function DashboardAdmin() {
 
           <button
             type="button"
-            className={`menu-item ${
-              activeTab === "stats"
+            className={`menu-item ${activeTab === "stats"
                 ? "active"
                 : ""
-            }`}
+              }`}
             onClick={() =>
               setActiveTab("stats")
             }
@@ -773,10 +771,10 @@ export default function DashboardAdmin() {
                             const percentage =
                               totalCategoryUses > 0
                                 ? Math.round(
-                                    (category.cantidad /
-                                      totalCategoryUses) *
-                                      100
-                                  )
+                                  (category.cantidad /
+                                    totalCategoryUses) *
+                                  100
+                                )
                                 : 0;
 
                             return (
@@ -789,8 +787,8 @@ export default function DashboardAdmin() {
                                   style={{
                                     backgroundColor:
                                       CHART_COLORS[
-                                        index %
-                                          CHART_COLORS.length
+                                      index %
+                                      CHART_COLORS.length
                                       ],
                                   }}
                                 />
@@ -813,8 +811,8 @@ export default function DashboardAdmin() {
                                         width: `${percentage}%`,
                                         backgroundColor:
                                           CHART_COLORS[
-                                            index %
-                                              CHART_COLORS.length
+                                          index %
+                                          CHART_COLORS.length
                                           ],
                                       }}
                                     />
@@ -920,16 +918,16 @@ export default function DashboardAdmin() {
 
                     {safeUsers.length >
                       recentUsers.length && (
-                      <button
-                        type="button"
-                        className="dashboard-view-users"
-                        onClick={() =>
-                          setActiveTab("users")
-                        }
-                      >
-                        Ver todos los usuarios
-                      </button>
-                    )}
+                        <button
+                          type="button"
+                          className="dashboard-view-users"
+                          onClick={() =>
+                            setActiveTab("users")
+                          }
+                        >
+                          Ver todos los usuarios
+                        </button>
+                      )}
                   </article>
                 </div>
 
@@ -1272,8 +1270,8 @@ export default function DashboardAdmin() {
                                     key={`status-${entry.name}`}
                                     fill={
                                       CHART_COLORS[
-                                        index %
-                                          CHART_COLORS.length
+                                      index %
+                                      CHART_COLORS.length
                                       ]
                                     }
                                   />
@@ -1339,8 +1337,8 @@ export default function DashboardAdmin() {
                                   key={`role-${entry.name}`}
                                   fill={
                                     CHART_COLORS[
-                                      (index + 2) %
-                                        CHART_COLORS.length
+                                    (index + 2) %
+                                    CHART_COLORS.length
                                     ]
                                   }
                                 />
@@ -1462,8 +1460,8 @@ export default function DashboardAdmin() {
                                   key={`profile-${entry.name}`}
                                   fill={
                                     CHART_COLORS[
-                                      (index + 5) %
-                                        CHART_COLORS.length
+                                    (index + 5) %
+                                    CHART_COLORS.length
                                     ]
                                   }
                                 />
@@ -1490,7 +1488,7 @@ export default function DashboardAdmin() {
                     </div>
 
                     {categoriesChartData.length ===
-                    0 ? (
+                      0 ? (
                       <div className="chart-empty">
                         No existen estadísticas de
                         categorías.
@@ -1557,8 +1555,8 @@ export default function DashboardAdmin() {
                                       key={`category-${category.name}-${index}`}
                                       fill={
                                         CHART_COLORS[
-                                          index %
-                                            CHART_COLORS.length
+                                        index %
+                                        CHART_COLORS.length
                                         ]
                                       }
                                     />
@@ -1581,8 +1579,8 @@ export default function DashboardAdmin() {
                                   style={{
                                     backgroundColor:
                                       CHART_COLORS[
-                                        index %
-                                          CHART_COLORS.length
+                                      index %
+                                      CHART_COLORS.length
                                       ],
                                   }}
                                 />
@@ -1695,7 +1693,7 @@ export default function DashboardAdmin() {
                   {currentUser.role === "admin"
                     ? "Administrador"
                     : currentUser.role ||
-                      "Administrador"}
+                    "Administrador"}
                 </strong>
               </div>
 
@@ -1714,9 +1712,9 @@ export default function DashboardAdmin() {
 
                 <strong>
                   {currentUser.is_pro === true ||
-                  String(
-                    currentUser.plan
-                  ).toUpperCase() === "PRO"
+                    String(
+                      currentUser.plan
+                    ).toUpperCase() === "PRO"
                     ? "PRO"
                     : currentUser.plan || "FREE"}
                 </strong>
@@ -1728,8 +1726,8 @@ export default function DashboardAdmin() {
                 <strong>
                   {currentUser.salary != null
                     ? `$${Number(
-                        currentUser.salary
-                      ).toFixed(2)}`
+                      currentUser.salary
+                    ).toFixed(2)}`
                     : "No registrado"}
                 </strong>
               </div>
