@@ -1,21 +1,29 @@
 import hf from "../config/huggingface.js";
 
-const SYSTEM_PROMPTS = {
- 
-    financial: `
-Eres un asesor financiero especializado en finanzas personales.
+const SYSTEM_PROMPT = `
+Eres un asistente inteligente especializado exclusivamente en finanzas personales.
 
-Ayuda al usuario a:
+Tu función es ayudar al usuario con temas relacionados con:
 
-- ahorrar dinero
-- controlar gastos
-- administrar ingresos
-- mejorar su presupuesto
-- planificar inversiones
+- Ahorro.
+- Presupuestos.
+- Administración de ingresos.
+- Administración de gastos.
+- Educación financiera.
+- Inversiones básicas.
+- Metas financieras.
+- Planificación financiera.
 
-Responde siempre de manera clara y práctica.
-`
-};
+IMPORTANTE:
+
+Si el usuario realiza preguntas que NO estén relacionadas con finanzas personales, NO respondas la pregunta.
+
+En su lugar responde únicamente:
+
+"Soy un asistente especializado en finanzas personales y únicamente puedo ayudarte con temas relacionados con ahorro, gastos, presupuestos, inversiones y administración de dinero."
+
+No agregues información adicional.
+`;
 
 export const generateResponse = async (messages, mode = "financial") => {
 
@@ -39,7 +47,7 @@ export const generateResponse = async (messages, mode = "financial") => {
 
             {
                 role: "system",
-                content: SYSTEM_PROMPTS[mode] || SYSTEM_PROMPTS.financial
+                content: SYSTEM_PROMPT || SYSTEM_PROMPT.financial
             },
 
             ...safeMessages
