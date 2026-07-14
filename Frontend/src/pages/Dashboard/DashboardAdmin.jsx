@@ -59,41 +59,26 @@ export default function DashboardAdmin() {
   // PETICIONES AUTENTICADAS
 
   const authFetch = async (url, options = {}) => {
-    const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
-    if (!token) {
-      alert("No existe una sesión activa.");
-      localStorage.clear();
-      window.location.href = "/";
-      return null;
-    }
+  console.log("URL solicitada:", url);
+  console.log("¿Existe token?:", Boolean(token));
+  console.log(
+    "Inicio del token:",
+    token ? token.substring(0, 20) : "No existe"
+  );
 
-    const response = await fetch(url, {
-      ...options,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-        ...options.headers,
-      },
-    });
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+      ...options.headers,
+    },
+  });
 
-    if (response.status === 401) {
-      alert("Tu sesión ha expirado.");
-
-      localStorage.clear();
-      window.location.href = "/";
-
-      return null;
-    }
-
-    if (response.status === 403) {
-      throw new Error(
-        "No tienes permisos para realizar esta acción."
-      );
-    }
-
-    return response;
-  };
+  return response;
+};
 
   // PROCESAR RESPUESTAS
 
