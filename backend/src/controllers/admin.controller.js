@@ -5,7 +5,7 @@ export const getUsers = async (req, res) => {
   try {
     const { data, error } = await supabaseAdmin
       .from('profiles')
-      .select('id, email, first_name, last_name, age, salary, children_count, pets_count, categories, role, profile_completed, is_active, created_at')
+      .select('id, email, first_name, last_name, age, salary, children_count, pets_count, categories, role, profile_completed, is_active, created_at, plan')
       .order('created_at', { ascending: false });
 
     if (error) return res.status(400).json({ success: false, message: error.message });
@@ -27,7 +27,7 @@ export const getUserById = async (req, res) => {
 
     const { data, error } = await supabaseAdmin
       .from('profiles')
-      .select('id, email, first_name, last_name, age, salary, children_count, pets_count, categories, role, profile_completed, is_active, created_at')
+      .select('id, email, first_name, last_name, age, salary, children_count, pets_count, categories, role, profile_completed, is_active, created_at, plan')
       .eq('id', id)
       .maybeSingle();
 
