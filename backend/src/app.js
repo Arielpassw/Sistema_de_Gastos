@@ -16,7 +16,7 @@ const app = express();
 // ORÍGENES PERMITIDOS
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://sistema-de-gastos-2mlp.vercel.app'
+  'https://sistemasgastos.netlify.app'
 ];
 
 app.use(cors({
