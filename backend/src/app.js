@@ -8,6 +8,7 @@ import expenseRoutes from './routes/expense.routes.js';
 import incomeRoutes from './routes/income.routes.js';
 import paymentsRoutes from "./routes/payments.routes.js";
 import aiRoutes from "./routes/ai.routes.js";
+import historyRoutes from './routes/history.routes.js';
 
 dotenv.config();
 
@@ -35,8 +36,7 @@ app.use(cors({
   credentials: true
 }));
 
-// IMPORTANTE:
-// El webhook debe ir ANTES del express.json()
+
 
 app.use("/api/payments/webhook", express.raw({ type: "application/json" }));
 
@@ -52,7 +52,8 @@ app.use("/api/payments", paymentsRoutes);
 
 app.use("/api/ai", aiRoutes);
 
-app.use('/api/auth', authRoutes);
+app.use('/api/history', historyRoutes);
+
 
 app.get('/', (req, res) => {
   res.json({
