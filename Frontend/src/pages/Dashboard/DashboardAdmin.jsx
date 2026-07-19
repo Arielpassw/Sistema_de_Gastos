@@ -31,6 +31,7 @@ import {
 
 const API_URL =
   import.meta.env.VITE_API_URL || "http://localhost:4000";
+
 console.log("API URL DEL ADMIN:", API_URL);
 
 const CHART_COLORS = [
@@ -59,26 +60,41 @@ export default function DashboardAdmin() {
   // PETICIONES AUTENTICADAS
 
   const authFetch = async (url, options = {}) => {
-  const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-  console.log("URL solicitada:", url);
-  console.log("¿Existe token?:", Boolean(token));
-  console.log(
-    "Inicio del token:",
-    token ? token.substring(0, 20) : "No existe"
-  );
+    if (!token) {
+      alert("No existe una sesión activa.");
+      localStorage.clear();
+      window.location.href = "/";
+      return null;
+    }
 
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-      ...options.headers,
-    },
-  });
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        ...options.headers,
+      },
+    });
 
-  return response;
-};
+    if (response.status === 401) {
+      alert("Tu sesión ha expirado.");
+
+      localStorage.clear();
+      window.location.href = "/";
+
+      return null;
+    }
+
+    if (response.status === 403) {
+      throw new Error(
+        "No tienes permisos para realizar esta acción."
+      );
+    }
+
+    return response;
+  };
 
   // PROCESAR RESPUESTAS
 
