@@ -12,6 +12,8 @@ import historyRoutes from './routes/history.routes.js';
 
 dotenv.config();
 
+// Configura la aplicación HTTP: seguridad de origen, decodificación del cuerpo
+// y el montaje de cada módulo de la API antes de exportarla al servidor.
 const app = express();
 
 // ORÍGENES PERMITIDOS

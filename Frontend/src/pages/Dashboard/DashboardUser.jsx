@@ -20,6 +20,8 @@ import { getDashboardData } from "../../services/dashboardService";
 import { createIncome } from "../../services/incomeService";
 import { createExpense } from "../../services/expenseService";
 import { sendAIMessage } from "../../services/iaService";
+// Componente principal del área autenticada: obtiene los movimientos,
+// calcula el resumen financiero y coordina los formularios de ingresos y gastos.
 function DashboardUser() {
   const navigate = useNavigate();
 

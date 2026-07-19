@@ -1,238 +1,109 @@
-
 # Sistema Web de Control de Gastos Personales con IA
 
-## Descripción
+Aplicación web para registrar ingresos y gastos personales, consultar el balance por categoría, administrar perfiles y habilitar un asistente financiero para usuarios del plan PRO.
 
-Sistema web desarrollado para la gestión de ingresos y gastos personales, permitiendo a los usuarios registrar movimientos financieros y visualizar reportes de manera sencilla e intuitiva.
+## Arquitectura
 
-El sistema incorpora autenticación de usuarios mediante Firebase y funcionalidades inteligentes para el análisis básico de gastos.
+- **Frontend:** React 19, Vite, React Router, Recharts y Lucide.
+- **Backend:** Node.js, Express 5 y API REST.
+- **Datos y autenticación:** Supabase (Auth y PostgreSQL).
+- **Pagos:** Stripe Checkout.
+- **Asistente financiero:** Hugging Face Inference.
 
----
+El frontend se encuentra en `Frontend/` y el backend en `backend/`.
 
-# Tecnologías Utilizadas
+## Requisitos
 
-## Frontend
-- React
-- Vite
-- CSS
+- Node.js 20 o superior y npm.
+- Un proyecto de Supabase con Auth configurado y las tablas `profiles`, `expenses` e `incomes`.
+- Cuenta y credenciales de Stripe para habilitar el plan PRO.
+- Token y modelo configurados de Hugging Face para el chat financiero.
 
-## Backend
-- Node.js
-- Express
+## Instalación
 
-## Base de Datos y Autenticación
-- Firebase Authentication
-- MongoDB
+1. Instale las dependencias del backend:
 
----
+   ```bash
+   cd backend
+   npm install
+   ```
 
-# Estructura del Proyecto
+2. Cree `backend/.env` con estas variables (use valores propios):
 
-```txt
-control-gastos-ia-completo/
-│
-├── backend/
-│   ├── controllers/
-│   ├── routes/
-│   ├── models/
-│   ├── middleware/
-│   └── server.js
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── firebase/
-│   │   └── App.jsx
-│   └── package.json
-│
-└── README.md
-```
+   ```env
+   PORT=4000
+   FRONTEND_URL=http://localhost:5173
+   SUPABASE_URL=
+   SUPABASE_ANON_KEY=
+   SUPABASE_SERVICE_ROLE_KEY=
+   STRIPE_SECRET_KEY=
+   STRIPE_WEBHOOK_SECRET=
+   STRIPE_PRICE_ID=
+   HF_TOKEN=
+   HF_MODEL=
+   HF_PROVIDER=
+   ```
 
----
+3. Instale las dependencias del frontend:
 
-# Instalación del Proyecto
+   ```bash
+   cd ../Frontend
+   npm install
+   ```
 
-## 1. Clonar repositorio
+4. Cree `Frontend/.env`:
+
+   ```env
+   VITE_API_URL=http://localhost:4000
+   VITE_SUPABASE_URL=
+   VITE_SUPABASE_ANON_KEY=
+   ```
+
+## Ejecución local
+
+Abra dos terminales.
 
 ```bash
-git clone https://github.com/Arielpassw/ProyectoWeb.git 
-```
-
----
-
-# Configuración Backend
-
-Entrar a la carpeta backend:
-
-```bash
+# Terminal 1
 cd backend
-```
-
-Instalar dependencias:
-
-```bash
-npm install
-```
-
-Iniciar servidor:
-
-```bash
-npm start
-```
-
----
-# Repositorio de Frontend
-```bash
-https://github.com/Emialejandra/ProyectoWeb_Frontend
-```
----
-# Configuración Frontend
-Entrar a la carpeta frontend:
-
-```bash
-cd frontend
-```
-
-Instalar dependencias:
-
-```bash
-npm install
-```
-
-Ejecutar proyecto:
-
-```bash
 npm run dev
 ```
 
----
-
-
-# Funcionalidades
-
-- Registro de usuarios
-- Inicio de sesión
-- Autenticación con Firebase
-- Registro de ingresos
-- Registro de gastos
-- Dashboard financiero
-- Visualización de balances
-- Reportes básicos
-- Análisis inteligente de gastos
-
----
-
-# Mockups del Sistema
-
-## Login
-
-```txt
--------------------------
-|       LOGIN           |
-|-----------------------|
-| Correo:              |
-| [______________]     |
-|                      |
-| Contraseña:         |
-| [______________]     |
-|                      |
-| [ Ingresar ]         |
--------------------------
+```bash
+# Terminal 2
+cd Frontend
+npm run dev
 ```
 
----
+Abra la dirección que muestre Vite, normalmente `http://localhost:5173`.
 
-## Dashboard
+## Uso
 
-```txt
--------------------------
-|  PANEL PRINCIPAL      |
-|-----------------------|
-| Ingresos: $1000       |
-| Gastos:   $600        |
-| Balance:  $400        |
-|-----------------------|
-| Gráfico aquí          |
--------------------------
-```
+1. Cree una cuenta con correo y contraseña o inicie sesión con Google.
+2. Complete el perfil: salario, datos familiares y una o más categorías.
+3. En el dashboard, registre ingresos y gastos con fecha, título, monto y descripción opcional.
+4. Consulte ingresos, gastos, balance y totales por las categorías seleccionadas.
+5. Desde **Plan PRO**, inicie Stripe Checkout. Al completarse el pago, Stripe actualiza el perfil a `PRO` mediante el webhook.
+6. Los usuarios PRO pueden usar el chat de IA para consultas de finanzas personales.
+7. Los administradores acceden al panel administrativo para consultar usuarios, categorías y métricas, además de cambiar roles o estados.
 
----
+## Scripts
 
-## Registro de Gastos
+| Ubicación | Comando | Uso |
+| --- | --- | --- |
+| `backend/` | `npm run dev` | Ejecuta el API con Nodemon. |
+| `backend/` | `npm start` | Ejecuta el API con Node.js. |
+| `Frontend/` | `npm run dev` | Inicia Vite en desarrollo. |
+| `Frontend/` | `npm run build` | Genera la compilación de producción. |
+| `Frontend/` | `npm run lint` | Ejecuta ESLint. |
 
-```txt
--------------------------
-| Nuevo gasto           |
-|-----------------------|
-| Monto:               |
-| [_________]          |
-| Categoría:           |
-| [Comida ▼]           |
-|                      |
-| [Guardar]            |
--------------------------
-```
+## API
 
----
+La documentación completa de rutas, parámetros, respuestas y ejemplos se encuentra en [API.md](API.md).
 
-# Firebase Authentication
+## Notas de seguridad
 
-El sistema utiliza Firebase Authentication para:
-
-- Registro de usuarios
-- Inicio de sesión
-- Validación de credenciales
-- Seguridad de autenticación
-
----
-
-# Git Ignore Recomendado
-
-```gitignore
-node_modules/
-.env
-dist/
-.vite/
-```
-
----
-
-# Integrantes
-
-- Ariel Arias
-- Emilia Tana
-
----
-
----
-
-# Evidencia
-
-- Módulo Registro
-  
-  <div align="center"> <img width="580" src="https://github.com/user-attachments/assets/27b72792-cccc-409a-b976-815e22cb9fc9" />
-
-  <div align="center"> <img width="500" src="https://github.com/user-attachments/assets/52df9a40-cdba-4a3c-b130-1ebfeb2dc531" />
-   
-- Módulo Login
-
-  <div align="center"> <img width="580" src="https://github.com/user-attachments/assets/535766b7-fae8-4e46-8b97-e6141c4cf1cb" /> </div>
-  
-- Autentificación
-
-<div align="center"> <img width="900" src="https://github.com/user-attachments/assets/a7bbce26-5102-4a92-a311-f5782c5fb269" /> </div>
-
----
-
-# Materia
-
-Desarrollo de Aplicaciones Web
-
----
-
-# Estado del Proyecto
-
-En desarrollo
-
----
+- No publique los archivos `.env` ni claves de Supabase, Stripe o Hugging Face.
+- El backend valida el token de Supabase en las rutas protegidas.
+- La clave `SUPABASE_SERVICE_ROLE_KEY` solo debe existir en el backend.
+- En producción, configure `FRONTEND_URL`, los orígenes CORS y los webhooks con las URL reales.
