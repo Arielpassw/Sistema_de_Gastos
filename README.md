@@ -28,9 +28,19 @@ El panel personal concentra la información financiera necesaria para dar seguim
 - Conversar con el asistente financiero de IA cuando la cuenta tiene una suscripción PRO activa.
 - Abrir el perfil o cerrar la sesión.
 
-<p align="center">
-  <img src="Frontend/src/assets/controlG4.png" alt="Ilustración del dashboard de control de ingresos y gastos" width="520">
-</p>
+#### Vista principal del usuario
+
+> **Espacio para imagen:** guarde la captura como `docs/images/dashboard-usuario.png` y sustituya este bloque por:
+>
+> `<img src="docs/images/dashboard-usuario.png" alt="Dashboard principal del usuario" width="900">`
+
+#### Asistente financiero con IA
+
+> **Espacio para imagen:** `docs/images/asistente-ia.png`
+
+#### Beneficios del Plan PRO
+
+> **Espacio para imagen:** `docs/images/plan-pro.png`
 
 ### Dashboard de administrador
 
@@ -45,11 +55,23 @@ El panel administrativo ofrece una visión global del sistema y herramientas de 
 - Analizar estadísticas por estado, rol, plan, perfil y categoría mediante gráficos.
 - Consultar los datos del perfil administrador.
 
-<p align="center">
-  <img src="Frontend/src/assets/controlG8.jpg" alt="Vista de referencia del panel financiero administrativo" width="720">
-</p>
+#### Resumen general del administrador
 
-> Las imágenes son recursos visuales de referencia incluidos en el proyecto.
+> **Espacio para imagen:** guarde la captura como `docs/images/dashboard-administrador.png` y sustituya este bloque por:
+>
+> `<img src="docs/images/dashboard-administrador.png" alt="Resumen general del dashboard administrativo" width="900">`
+
+#### Gestión de usuarios
+
+> **Espacio para imagen:** `docs/images/gestion-usuarios.png`
+
+#### Estadísticas generales
+
+> **Espacio para imagen:** `docs/images/estadisticas-administrador.png`
+
+#### Categorías y distribución de planes
+
+> **Espacio para imagen:** `docs/images/categorias-planes.png`
 
 ## Tecnologías
 
