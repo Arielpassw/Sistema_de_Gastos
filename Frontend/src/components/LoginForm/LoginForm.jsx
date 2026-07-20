@@ -105,9 +105,7 @@ function LoginForm() {
         );
       }
 
-      /*
-       * Validación adicional del frontend.
-       */
+      /*Validación adicional del frontend.*/
       if (rawUser.is_active === false) {
         throw new Error(
           "Tu cuenta ha sido desactivada. Comunícate con el administrador."
@@ -132,9 +130,7 @@ function LoginForm() {
 
       console.log("USER FINAL:", normalizedUser);
 
-      /*
-       * Redirección del administrador.
-       */
+      /* Redirección del administrador.*/
       if (normalizedUser.role === "admin") {
         navigate("/admin-test", {
           replace: true,
@@ -143,9 +139,7 @@ function LoginForm() {
         return;
       }
 
-      /*
-       * Comprobar si el usuario completó el perfil.
-       */
+      /* Comprobar si el usuario completó el perfil.*/
       const profileComplete =
         rawUser.profile_completed === true &&
         Boolean(normalizedUser?.first_name?.trim()) &&
