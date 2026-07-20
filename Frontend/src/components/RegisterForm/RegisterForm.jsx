@@ -25,7 +25,7 @@ function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // Efecto para limpiar las alertas automáticamente después de 4 segundos
+  // Efecto para limpiar las alertas 
   useEffect(() => {
     if (error || successMessage) {
       const timer = setTimeout(() => {
@@ -92,7 +92,7 @@ function RegisterForm() {
       }
 
       setError("");
-      // Cambiamos el alert monótono por tu nuevo Toast dinámico
+   
       setSuccessMessage("Cuenta creada correctamente. Revisa tu correo.");
 
       setFormData({
@@ -104,7 +104,6 @@ function RegisterForm() {
         confirmPassword: ""
       });
 
-      // Damos 3 segundos para que lea el Toast de éxito antes de redirigir
       setTimeout(() => {
         navigate("/");
       }, 3000);

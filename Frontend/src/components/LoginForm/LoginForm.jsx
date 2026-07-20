@@ -27,14 +27,6 @@ function LoginForm() {
 
   const [error, setError] = useState("");
 
-  /*
-   * Mostrar mensajes enviados desde DashboardUser.
-   *
-   * Se utiliza cuando:
-   * - La cuenta de Google está desactivada.
-   * - Falló la autenticación con Google.
-   * - No se pudo recuperar el perfil.
-   */
   useEffect(() => {
     const stateError = location.state?.error;
     const stateMessage = location.state?.message;
@@ -90,9 +82,7 @@ function LoginForm() {
 
       console.log("LOGIN RESPONSE:", data);
 
-      /*
-       * El backend ya devuelve 403 cuando is_active es false.
-       */
+
       if (response.status === 403) {
         throw new Error(
           "Tu cuenta ha sido desactivada. Comunícate con el administrador."
@@ -102,7 +92,7 @@ function LoginForm() {
       if (!response.ok) {
         throw new Error(
           data?.message ||
-            "Correo electrónico o contraseña incorrectos."
+          "Correo electrónico o contraseña incorrectos."
         );
       }
 
@@ -188,10 +178,7 @@ function LoginForm() {
         err?.message ||
         "No se pudo iniciar sesión. Inténtalo nuevamente.";
 
-      /*
-       * Evita que getFriendlyError cambie el mensaje
-       * específico de cuenta desactivada.
-       */
+
       if (
         message.toLowerCase().includes("desactivad") ||
         message.toLowerCase().includes("inactiv")
@@ -235,7 +222,7 @@ function LoginForm() {
       if (!response.ok) {
         throw new Error(
           data?.message ||
-            "No se pudo iniciar sesión con Google."
+          "No se pudo iniciar sesión con Google."
         );
       }
 
@@ -245,17 +232,13 @@ function LoginForm() {
         );
       }
 
-      /*
-       * El backend devuelve la URL de Supabase/Google.
-       * Al terminar, Google regresará a /dashboardUser.
-       */
       window.location.assign(data.url);
     } catch (err) {
       console.error("Error Google Login:", err);
 
       setError(
         err?.message ||
-          "No se pudo iniciar sesión con Google."
+        "No se pudo iniciar sesión con Google."
       );
 
       setGoogleLoading(false);
