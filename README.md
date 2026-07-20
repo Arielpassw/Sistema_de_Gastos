@@ -30,17 +30,17 @@ El panel personal concentra la información financiera necesaria para dar seguim
 
 #### Vista principal del usuario
 
-> **Espacio para imagen:** guarde la captura como `docs/images/dashboard-usuario.png` y sustituya este bloque por:
->
-> `<img src="docs/images/dashboard-usuario.png" alt="Dashboard principal del usuario" width="900">`
+<img width="1858" height="791" alt="image" src="https://github.com/user-attachments/assets/946e404f-4e2a-4ca3-ba93-06bbadfd0901" />
 
 #### Asistente financiero con IA
 
-> **Espacio para imagen:** `docs/images/asistente-ia.png`
+<img width="1227" height="773" alt="image" src="https://github.com/user-attachments/assets/7e0ef9a7-1a76-48a4-86ed-007c84936929" />
+
 
 #### Beneficios del Plan PRO
 
-> **Espacio para imagen:** `docs/images/plan-pro.png`
+<img width="1856" height="321" alt="image" src="https://github.com/user-attachments/assets/2bde23fb-bebb-4327-9a5a-fb9ad87c08e9" />
+
 
 ### Dashboard de administrador
 
@@ -57,21 +57,25 @@ El panel administrativo ofrece una visión global del sistema y herramientas de 
 
 #### Resumen general del administrador
 
-> **Espacio para imagen:** guarde la captura como `docs/images/dashboard-administrador.png` y sustituya este bloque por:
->
-> `<img src="docs/images/dashboard-administrador.png" alt="Resumen general del dashboard administrativo" width="900">`
+<img width="1893" height="923" alt="image" src="https://github.com/user-attachments/assets/dc83cb3d-2a8a-463d-801d-1cbd538effdb" />
 
 #### Gestión de usuarios
 
-> **Espacio para imagen:** `docs/images/gestion-usuarios.png`
+<img width="1618" height="875" alt="image" src="https://github.com/user-attachments/assets/31eb73ea-2ab1-46fc-b980-d105e2056cd7" />
+
 
 #### Estadísticas generales
+<img width="1600" height="667" alt="image" src="https://github.com/user-attachments/assets/d3bdc0be-4421-4b19-8a03-dfc03bffec6a" />
 
-> **Espacio para imagen:** `docs/images/estadisticas-administrador.png`
 
-#### Categorías y distribución de planes
+#### Categorías 
+<img width="1563" height="700" alt="image" src="https://github.com/user-attachments/assets/fb782b07-69e8-4257-80ba-9a0d5f93a2f1" />
 
-> **Espacio para imagen:** `docs/images/categorias-planes.png`
+
+#### Distribución de planes
+<img width="1552" height="522" alt="image" src="https://github.com/user-attachments/assets/4151556d-c6e5-418d-9e35-5e074fc927d7" />
+
+
 
 ## Tecnologías
 
@@ -234,6 +238,3 @@ La documentación de rutas, parámetros, respuestas y ejemplos está disponible 
 - En producción, configure correctamente `FRONTEND_URL`, CORS y el webhook de Stripe.
 - Nunca exponga `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` ni `HF_TOKEN` en el frontend.
 
-## Licencia
-
-Este proyecto fue desarrollado con fines académicos. Agregue una licencia antes de distribuirlo o utilizarlo en producción.
